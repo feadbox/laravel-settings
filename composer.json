@@ -1,0 +1,27 @@
+{
+    "name": "feadbox/laravel-settings",
+    "description": "Laravel settings",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Davut Kember",
+            "email": "davutkmbr@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Feadbox\\Settings\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Feadbox\\Settings\\SettingsServiceProvider"
+            ]
+        }
+    }
+}
