@@ -1,6 +1,6 @@
 <?php
 
-namespace Feadbox\Settings\Eloquents\Traits;
+namespace Feadbox\Settings\Eloquent\Traits;
 
 use Feadbox\Settings\Models\Setting;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
