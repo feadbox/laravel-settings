@@ -41,8 +41,15 @@ class SettingsServiceProvider extends ServiceProvider
 
     private function mergeWithConfigKeys()
     {
-        $keys = config('settings.merge-with-config-keys', []);
+        if ($this->app->runningInConsole()) {
+            return;
+        }
 
-        config(Setting::whereIn('key', $keys)->pluck('value', 'key')->toArray());
+        config(
+            Setting::query()
+                ->whereIn('key', config('settings.merge-with-config-keys', []))
+                ->pluck('value', 'key')
+                ->toArray()
+        );
     }
 }
