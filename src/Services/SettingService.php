@@ -13,10 +13,10 @@ class SettingService
         $insert = ['value' => $value];
 
         if ($model) {
-            return $model->settings()->firstOrCreate($search, $insert);
+            return $model->settings()->updateOrCreate($search, $insert);
         }
 
-        return Setting::firstOrCreate($search, $insert);
+        return Setting::updateOrCreate($search, $insert);
     }
 
     public function get(string $key, mixed $default = null, ?Model $model = null)
