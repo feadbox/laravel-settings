@@ -1,10 +1,9 @@
 <?php
 
 use Feadbox\Settings\Services\SettingService;
-use Illuminate\Database\Eloquent\Model;
 
 if (!function_exists('setting')) {
-    function setting(string|array $key, mixed $default = null, ?Model $model = null)
+    function setting(string|array $key, mixed $default = null, mixed $model = false)
     {
         if (is_array($key)) {
             $saved = [];

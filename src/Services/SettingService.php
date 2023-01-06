@@ -28,7 +28,7 @@ class SettingService
         return $default;
     }
 
-    public function getModel(string $key, $model = false): ?Setting
+    public function getModel(string $key, mixed $model = false): ?Setting
     {
         if ($model === false) {
             return Setting::query()
