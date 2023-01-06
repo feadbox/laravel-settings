@@ -21,15 +21,27 @@ class SettingService
 
     public function get(string $key, mixed $default = null, ?Model $model = null)
     {
-        return $this->getModel($key, $model)?->value ?: $default;
+        if ($item = $this->getModel($key, $model)) {
+            return $item->value;
+        }
+
+        return $default;
     }
 
-    public function getModel(string $key, ?Model $model = null): ?Setting
+    public function getModel(string $key, ?Model $model = false): ?Setting
     {
+        if ($model === false) {
+            return Setting::query()
+                ->where('key', $key)
+                ->whereNull('settingable_id')
+                ->whereNull('settingable_type')
+                ->first();
+        }
+
         if ($model) {
             return $model->settings()->where('key', $key)->first();
         }
 
-        return Setting::where('key', $key)->first();
+        return null;
     }
 }
