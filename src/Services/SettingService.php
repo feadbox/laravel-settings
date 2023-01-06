@@ -7,19 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class SettingService
 {
-    public function set(string $key, mixed $value, ?Model $model = null): Setting
+    public function set(string $key, mixed $value, mixed $model = false): Setting
     {
         $search = ['key' => $key];
         $insert = ['value' => $value];
 
-        if ($model) {
+        if ($model !== false) {
             return $model->settings()->updateOrCreate($search, $insert);
         }
 
         return Setting::updateOrCreate($search, $insert);
     }
 
-    public function get(string $key, mixed $default = null, ?Model $model = null)
+    public function get(string $key, mixed $default = null, mixed $model = false)
     {
         if ($item = $this->getModel($key, $model)) {
             return $item->value;
