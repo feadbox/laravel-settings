@@ -3,20 +3,21 @@
 namespace Feadbox\Settings\Services;
 
 use Feadbox\Settings\Models\Setting;
-use Illuminate\Database\Eloquent\Model;
 
 class SettingService
 {
-    public function set(string $key, mixed $value, mixed $model = false): Setting
+    public function set(string $key, mixed $value, mixed $model = false): Setting|bool
     {
+        $builder = $model === false ? Setting::query() : $model->settings();
+
         $search = ['key' => $key];
         $insert = ['value' => $value];
 
-        if ($model !== false) {
-            return $model->settings()->updateOrCreate($search, $insert);
+        if (is_null($value)) {
+            return $builder->where($search)->delete();
         }
 
-        return Setting::updateOrCreate($search, $insert);
+        return $builder->updateOrCreate($search, $insert);
     }
 
     public function get(string $key, mixed $default = null, mixed $model = false)
